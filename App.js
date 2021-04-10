@@ -1,18 +1,9 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
-import Card from "./app/components/Card";
-
+import ViewImageScreen from "./app/screens/ViewImageScreen";
 export default function App() {
-  return (
-    <View style={{ backgroundColor: "#f8f4f4", padding: 20, paddingTop: 100 }}>
-      <Card
-        title="Red Jacket for sale"
-        subTitle="$100"
-        image={require("./app/assets/jacket.jpg")}
-      />
-    </View>
-  );
+  return <ViewImageScreen />;
 }
 
 const styles = StyleSheet.create({
