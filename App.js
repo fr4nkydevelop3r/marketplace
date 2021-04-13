@@ -1,16 +1,7 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
+import LoginScreen from "./app/screens/LoginScreen";
 
-import MessagesScreen from "./app/screens/MessagesScreen";
 export default function App() {
-  return <MessagesScreen />;
+  return <LoginScreen />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
