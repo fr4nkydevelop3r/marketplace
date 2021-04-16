@@ -5,7 +5,7 @@ import { human } from "react-native-typography";
 
 import defaultStyles from "../config/styles";
 
-export default function AppText({ children, style }) {
+export default function AppText({ children, style, ...otherProps }) {
   return (
     <Text
       style={[
@@ -13,6 +13,7 @@ export default function AppText({ children, style }) {
         Platform.OS === "android" ? material.body1 : human.body,
         style,
       ]}
+      {...otherProps}
     >
       {children}
     </Text>

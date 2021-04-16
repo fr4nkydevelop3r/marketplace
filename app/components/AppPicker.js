@@ -9,25 +9,27 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import defaultStyles from "../config/styles";
-import colors from "../config/colors";
 import AppText from "./AppText";
 import Screen from "./Screen";
+import defaultStyles from "../config/styles";
 import PickerItem from "./PickerItem";
 
-export default function AppPicker({
+function AppPicker({
   icon,
-  placeholder,
   items,
+  numberOfColumns = 1,
   onSelectItem,
+  placeholder,
   selectedItem,
+  width = "100%",
+  PickerItemComponent = PickerItem,
 }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
-        <View style={styles.container}>
+        <View style={[styles.container, { width }]}>
           {icon && (
             <MaterialCommunityIcons
               name={icon}
@@ -36,13 +38,16 @@ export default function AppPicker({
               style={styles.icon}
             />
           )}
-          <AppText style={styles.text}>
-            {selectedItem ? selectedItem.label : placeholder}
-          </AppText>
+          {selectedItem ? (
+            <AppText style={styles.text}>{selectedItem.label}</AppText>
+          ) : (
+            <AppText style={styles.placeholder}>{placeholder}</AppText>
+          )}
+
           <MaterialCommunityIcons
             name="chevron-down"
             size={20}
-            color={colors.medium}
+            color={defaultStyles.colors.medium}
           />
         </View>
       </TouchableWithoutFeedback>
@@ -52,8 +57,10 @@ export default function AppPicker({
           <FlatList
             data={items}
             keyExtractor={(item) => item.value.toString()}
+            numColumns={numberOfColumns}
             renderItem={({ item }) => (
-              <PickerItem
+              <PickerItemComponent
+                item={item}
                 label={item.label}
                 onPress={() => {
                   setModalVisible(false);
@@ -73,15 +80,19 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.light,
     borderRadius: 25,
     flexDirection: "row",
-    width: "100%",
     padding: 15,
     marginVertical: 10,
   },
-
   icon: {
     marginRight: 10,
+  },
+  placeholder: {
+    color: defaultStyles.colors.medium,
+    flex: 1,
   },
   text: {
     flex: 1,
   },
 });
+
+export default AppPicker;
